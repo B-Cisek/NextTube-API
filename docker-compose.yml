@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  php:
+    container_name: "next-tube-php"
+    build:
+      context: .docker/php
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+    environment:
+      PHP_POST_MAX_SIZE: "500M"
+      PHP_UPLOAD_MAX_FILE_SIZE: "500M"
+      PHP_DATE_TIMEZONE: "Europe/Warsaw"
+      SSL_MODE: "mixed"
+    ports:
+      - "80:8080"
+      - "443:8443"
+    volumes:
+      - .:/var/www/html/:cached
+  db:
+    container_name: "next-tube-db"
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: 'db'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - .docker/db/data:/var/lib/mysql
+      - .docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - .docker/db/sql:/docker-entrypoint-initdb.d
+  mail:
+    container_name: "next-tube-mail"
+    image: axllent/mailpit:latest
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+  redis:
+    container_name: "next-tube-redis"
+    image: redis:6
+    command: "redis-server --appendonly yes"
+    volumes:
+      - .docker/redis/data:/data
+    ports:
+      - "6379:6379"
