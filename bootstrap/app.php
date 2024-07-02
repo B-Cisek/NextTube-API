@@ -12,8 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->api(prepend: [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]);
     })
+    ->withEvents(discover: [
+        __DIR__ . '/../modules/Auth/Listeners',
+        __DIR__ . '/../modules/Auth/Events'
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

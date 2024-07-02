@@ -1,13 +1,11 @@
 <?php
 
-namespace Modules\Auth\Repositories;
+namespace Modules\Auth\Repositories\User;
 
 use Modules\Auth\Models\User;
+use Modules\Auth\Repositories\BaseRepository;
 
-class UserRepository extends BaseRepository
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
-    public function __construct(User $model)
-    {
-        parent::__construct($model);
-    }
+    protected string $modelClass = User::class;
 }
