@@ -50,7 +50,8 @@ readonly class AuthService implements AuthServiceInterface
         // TODO: Implement loginAdmin() method.
     }
 
-    public function logoutAdmin(Admin $user): bool{
+    public function logoutAdmin(Admin $user): bool
+    {
         // TODO: Implement logoutAdmin() method.
     }
 }
