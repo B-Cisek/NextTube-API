@@ -15,16 +15,12 @@ class SignupUserController extends Controller
     public function __construct(
         private readonly AuthServiceInterface $authService,
         private readonly ResponseFactory $responseFactory
-    ) {
-    }
+    ) {}
 
     public function __invoke(UserSignupRequest $request): JsonResponse
     {
         $user = $this->authService->signupUser($request);
 
-        return $this->responseFactory->json(
-            new LoggedInUserResource($user),
-            Response::HTTP_CREATED
-        );
+        return $this->responseFactory->json(new LoggedInUserResource($user), Response::HTTP_CREATED);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Repositories;
+namespace Modules\Auth\Tests\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -36,7 +36,8 @@ class BaseRepositoryTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        new class () extends BaseRepository {
+        new class() extends BaseRepository
+        {
             protected string $modelClass = 'NonExistentClass';
         };
     }
@@ -100,7 +101,7 @@ class BaseRepositoryTest extends TestCase
     }
 
     #[Test]
-    public function test_delete(): void
+    public function testDelete(): void
     {
         $user = User::factory()->create();
         $deleted = $this->userRepository->delete($user);
@@ -113,7 +114,7 @@ class BaseRepositoryTest extends TestCase
     {
         $attributes = [
             'email' => 'unique@example.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
         ];
         $values = ['username' => 'John Doe'];
         $user = $this->userRepository->updateOrCreate($attributes, $values);
@@ -127,7 +128,7 @@ class BaseRepositoryTest extends TestCase
         User::factory()->make()->create([
             'username' => 'JohnDoe',
             'email' => 'johndoe@example.com',
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         User::factory()->count(9)->create();

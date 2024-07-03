@@ -13,8 +13,5 @@ class UserSignedUp
     use InteractsWithSockets;
     use SerializesModels;
 
-    public function __construct(public Authenticatable $user)
-    {
-        //
-    }
+    public function __construct(public Authenticatable $user) {}
 }

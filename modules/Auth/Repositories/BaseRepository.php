@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 abstract class BaseRepository
 {
     private Model $model;
+
     protected string $modelClass;
 
     public function __construct()
@@ -50,7 +51,7 @@ abstract class BaseRepository
         return $entity->update($data);
     }
 
-    public function delete(Model $entity): bool|null
+    public function delete(Model $entity): ?bool
     {
         return $entity->delete();
     }

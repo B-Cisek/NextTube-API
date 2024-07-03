@@ -17,6 +17,4 @@ use Modules\Auth\Models\User;
  * @method User updateOrCreate(array $attributes, array $values)
  * @method Collection|User|null getBy(array $condition = [], bool $takeOne = false)
  */
-interface UserRepositoryInterface
-{
-}
+interface UserRepositoryInterface {}

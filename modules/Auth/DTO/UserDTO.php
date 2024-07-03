@@ -10,7 +10,5 @@ final readonly class UserDTO
         public string $email,
         public string $password,
         public string $createdAt,
-    ) {
-    }
-
+    ) {}
 }

@@ -26,18 +26,18 @@ class UserSignupRequest extends FormRequest
             'username' => [
                 'string',
                 'required',
-                Rule::unique('users', 'username')
+                Rule::unique('users', 'username'),
             ],
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')
+                Rule::unique('users', 'email'),
             ],
             'password' => [
                 'required',
                 'min:6',
                 'string',
-                'confirmed'
+                'confirmed',
             ],
         ];
     }
