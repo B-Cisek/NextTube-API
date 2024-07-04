@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Modules\Auth\Http\Requests\UserLoginRequest;
-use Modules\Auth\Services\AuthServiceInterface;
+use Modules\Auth\Services\Authentication\AuthServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginUserController extends Controller

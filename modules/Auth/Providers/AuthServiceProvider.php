@@ -5,8 +5,8 @@ namespace Modules\Auth\Providers;
 use Illuminate\Support\ServiceProvider;
 use Modules\Auth\Repositories\User\UserRepository;
 use Modules\Auth\Repositories\User\UserRepositoryInterface;
-use Modules\Auth\Services\AuthService;
-use Modules\Auth\Services\AuthServiceInterface;
+use Modules\Auth\Services\Authentication\AuthService;
+use Modules\Auth\Services\Authentication\AuthServiceInterface;
 
 class AuthServiceProvider extends ServiceProvider
 {

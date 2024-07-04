@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\Services;
+namespace Modules\Auth\Services\Authentication;
 
 use Illuminate\Http\Request;
 use Modules\Auth\Http\Requests\AdminLoginRequest;

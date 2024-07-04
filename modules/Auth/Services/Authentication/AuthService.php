@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\Services;
+namespace Modules\Auth\Services\Authentication;
 
 use Illuminate\Hashing\HashManager;
 use Illuminate\Http\Request;
@@ -12,6 +12,7 @@ use Modules\Auth\Http\Requests\UserLoginRequest;
 use Modules\Auth\Http\Requests\UserSignupRequest;
 use Modules\Auth\Models\User;
 use Modules\Auth\Repositories\User\UserRepositoryInterface;
+use Modules\Auth\Services\RateLimiterService;
 
 readonly class AuthService implements AuthServiceInterface
 {
@@ -64,11 +65,19 @@ readonly class AuthService implements AuthServiceInterface
 
     public function loginAdmin(AdminLoginRequest $request): void
     {
-        // TODO: Implement loginAdmin() method.
+        if (! Auth::guard('admin')->attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            throw ValidationException::withMessages(['email' => __('auth.failed')]);
+        }
+
+        $request->session()->regenerate();
     }
 
     public function logoutAdmin(Request $request): void
     {
-        // TODO: Implement logoutAdmin() method.
+        Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
     }
 }

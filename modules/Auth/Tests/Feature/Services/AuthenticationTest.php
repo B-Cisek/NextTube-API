@@ -1,8 +1,9 @@
 <?php
 
-namespace Modules\Auth\Tests\Feature;
+namespace Modules\Auth\Tests\Feature\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Auth\Models\Admin;
 use Modules\Auth\Models\User;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -12,7 +13,7 @@ class AuthenticationTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function it_users_can_authenticate_using_the_login_screen(): void
+    public function it_users_can_authenticate_using_the_login_endpoint(): void
     {
         $user = User::factory()->create();
 
@@ -70,5 +71,30 @@ class AuthenticationTest extends TestCase
                 'isEmailVerified' => $response->json('user.isEmailVerified'),
             ],
         ]);
+    }
+
+    #[Test]
+    public function it_admin_can_authenticate_using_the_login_endpoint(): void
+    {
+        $admin = Admin::factory()->create();
+
+        $response = $this->post('/admin/login', [
+            'email' => $admin->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated('admin');
+        $response->assertNoContent();
+    }
+
+    #[Test]
+    public function it_admin_can_logout(): void
+    {
+        $admin = Admin::factory()->create();
+
+        $response = $this->actingAs($admin, 'admin')->post('/admin/logout');
+
+        $this->assertGuest('admin');
+        $response->assertNoContent();
     }
 }

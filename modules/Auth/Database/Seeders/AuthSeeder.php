@@ -3,6 +3,8 @@
 namespace Modules\Auth\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Modules\Auth\Models\Admin;
 use Modules\Auth\Models\User;
 
 class AuthSeeder extends Seeder
@@ -12,6 +14,16 @@ class AuthSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        User::factory()->create([
+            'username' => 'JohnDoe',
+            'email' => 'john.doe@example.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        Admin::factory()->create([
+            'username' => 'admin',
+            'email' => 'admin@next-tube.com',
+            'password' => Hash::make('password'),
+        ]);
     }
 }

@@ -10,9 +10,11 @@ class RouteServiceProvider extends BaseRouteServiceProvider
     public function boot(): void
     {
         $this->routes(function () {
+            Route::middleware('web')->group(dirname(__DIR__).'/Routes/auth.php');
+
             Route::middleware('api')
                 ->prefix('api')
-                ->group(__DIR__.'/../Routes/api.php');
+                ->group(dirname(__DIR__).'/Routes/api.php');
         });
     }
 }

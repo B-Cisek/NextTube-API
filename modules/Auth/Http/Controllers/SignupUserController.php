@@ -7,7 +7,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Modules\Auth\Http\Requests\UserSignupRequest;
 use Modules\Auth\Http\Resources\LoggedInUserResource;
-use Modules\Auth\Services\AuthServiceInterface;
+use Modules\Auth\Services\Authentication\AuthServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class SignupUserController extends Controller

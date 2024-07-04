@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Auth\Services\Authentication\AuthServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class LogoutUserController extends Controller
+class LogoutAdminController extends Controller
 {
     public function __construct(
         private readonly ResponseFactory $responseFactory,
@@ -18,7 +18,7 @@ class LogoutUserController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
-        $this->authService->logoutUser($request);
+        $this->authService->logoutAdmin($request);
 
         return $this->responseFactory->json(status: Response::HTTP_NO_CONTENT);
     }
