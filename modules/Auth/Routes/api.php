@@ -2,11 +2,19 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\Auth\Http\Controllers\EmailVerificationNotificationController;
+use Modules\Auth\Http\Controllers\VerifyEmailController;
 
-Route::get('/me', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/me', fn (Request $request) => $request->user());
+    Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
+        ->middleware('signed')
+        ->name('verification.verify');
+    Route::post('/email/verification-notification', EmailVerificationNotificationController::class)
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
+});
 
-Route::get('/admin/me', function (Request $request) {
-    return $request->user('admin');
-})->middleware('auth:admin');
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/me', fn (Request $request) => $request->user('admin'));
+});

@@ -2,21 +2,24 @@
 
 namespace Modules\Auth\Listeners;
 
-use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Events\Registered;
 use Modules\Auth\Events\UserSignedUp;
 
-class SendWelcomeEmail
+class SendEmailVerification
 {
     /**
      * Create the event listener.
      */
-    public function __construct() {}
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Handle the event.
      */
     public function handle(UserSignedUp $event): void
     {
-        Log::info('email to: '.$event->user->email.' has been send!');
+        event(new Registered($event->user)); // Internal event for email verification
     }
 }

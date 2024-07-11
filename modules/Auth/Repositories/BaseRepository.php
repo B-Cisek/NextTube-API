@@ -36,12 +36,12 @@ abstract class BaseRepository
         return $this->model->create($data);
     }
 
-    public function find(int $id): ?Model
+    public function find(int|string $id): ?Model
     {
         return $this->model->find($id);
     }
 
-    public function findOrFail(int $id): Model|Collection
+    public function findOrFail(int|string $id): Model|Collection
     {
         return $this->model->findOrFail($id);
     }
