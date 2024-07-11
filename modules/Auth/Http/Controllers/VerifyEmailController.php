@@ -19,7 +19,7 @@ class VerifyEmailController extends Controller
 
         return $this->responseFactory->json([
             'message' => 'Email verified successfully',
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 }
