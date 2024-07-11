@@ -13,8 +13,8 @@ use Modules\Auth\Database\Factories\UserFactory;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
-    use Notifiable;
     use HasUuids;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
