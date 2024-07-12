@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\Auth\Database\Factories\UserFactory;
+use Modules\Auth\Notifications\EmailVerificationNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -53,5 +54,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function newFactory(): Factory
     {
         return UserFactory::new();
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new EmailVerificationNotification());
     }
 }
