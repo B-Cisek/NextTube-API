@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Http\Controllers\EmailVerificationNotificationController;
+use Modules\Auth\Http\Controllers\NewPasswordController;
+use Modules\Auth\Http\Controllers\PasswordResetLinkController;
 use Modules\Auth\Http\Controllers\VerifyEmailController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -17,4 +19,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/me', fn (Request $request) => $request->user('admin'));
+});
+
+
+Route::middleware(['guest'])->group(function () {
+    Route::post('/forgot-password', PasswordResetLinkController::class)->name('password.email');
+    Route::post('/reset-password', NewPasswordController::class)->name('password.update');
 });
