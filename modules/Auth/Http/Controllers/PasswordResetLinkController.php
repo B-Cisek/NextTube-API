@@ -24,7 +24,7 @@ class PasswordResetLinkController extends Controller
             ? $this->responseFactory->json(['status' => 'success'])
             : $this->responseFactory->json([
                 'status' => 'error',
-                'email' => __($status)
+                'email' => __($status),
             ]);
     }
 }

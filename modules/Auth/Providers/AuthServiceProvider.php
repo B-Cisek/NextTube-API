@@ -6,7 +6,6 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Modules\Auth\Models\User;
@@ -32,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config.php', 'auth');
 
         ResetPassword::createUrlUsing(function (User $user, string $token) {
-            return Config::get('auth.frontend_url') . '/reset-password?token='.$token;
+            return Config::get('auth.frontend_url').'/reset-password?token='.$token;
         });
 
         VerifyEmail::createUrlUsing(function ($notifiable) {
@@ -50,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
             );
 
             $frontendUrl = Config::get('auth.frontend_url');
-            $backendUrl = Config::get('app.url') . '/api';
+            $backendUrl = Config::get('app.url').'/api';
 
             return str_replace($backendUrl, $frontendUrl, $url);
         });
