@@ -46,6 +46,6 @@ class NewPasswordController extends Controller
             ]);
         }
 
-        return $this->responseFactory->json(['status' => 'success']);
+        return $this->responseFactory->json(...static::success());
     }
 }
