@@ -13,7 +13,7 @@ return [
         'keyPath' => [
             'private' => base_path('config/jwt/private.pem'),
             'public' => base_path('config/jwt/public.pem'),
-        ]
+        ],
     ],
 
     /*

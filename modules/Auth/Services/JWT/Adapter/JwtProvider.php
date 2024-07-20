@@ -15,9 +15,7 @@ final readonly class JwtProvider implements JwtProviderInterface
         private string $publicKey,
         private array $payload,
         private string $algorithm
-    )
-    {
-    }
+    ) {}
 
     public function generateToken(array $payload): string
     {
@@ -33,10 +31,12 @@ final readonly class JwtProvider implements JwtProviderInterface
         } catch (LogicException $e) {
             // errors having to do with environmental setup or malformed JWT Keys
             dd($e->getMessage());
+
             return false;
         } catch (UnexpectedValueException $e) {
             // errors having to do with JWT signature and claims
             dd($e->getMessage());
+
             return false;
         }
 

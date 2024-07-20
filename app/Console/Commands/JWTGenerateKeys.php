@@ -27,7 +27,7 @@ class JWTGenerateKeys extends Command
     {
         $configJwtPath = base_path('config/jwt');
 
-        if (!is_dir($configJwtPath)) {
+        if (! is_dir($configJwtPath)) {
             mkdir($configJwtPath, 0755, true);
         }
 
@@ -35,12 +35,13 @@ class JWTGenerateKeys extends Command
 
         if (empty($passphrase)) {
             $this->error('Passphrase not set in .env file.');
+
             return;
         }
 
         // Define paths for keys
-        $privateKeyPath = $configJwtPath . '/private.pem';
-        $publicKeyPath = $configJwtPath . '/public.pem';
+        $privateKeyPath = $configJwtPath.'/private.pem';
+        $publicKeyPath = $configJwtPath.'/public.pem';
 
         // Generate the private key with the passphrase
         $privateKeyCommand = sprintf(
@@ -54,6 +55,7 @@ class JWTGenerateKeys extends Command
 
         if ($returnVar !== 0) {
             $this->error('Failed to generate private key.');
+
             return;
         }
 
@@ -70,6 +72,7 @@ class JWTGenerateKeys extends Command
 
         if ($returnVar !== 0) {
             $this->error('Failed to generate public key.');
+
             return;
         }
 

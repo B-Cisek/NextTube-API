@@ -14,14 +14,12 @@ class MeController extends Controller
     public function __construct(
         private readonly JwtProviderInterface $jwtProvider,
         private readonly ResponseFactory $responseFactory,
-    )
-    {
-    }
+    ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
         $token = $this->jwtProvider->generateToken([
-            'email' => $request->get('email')
+            'email' => $request->get('email'),
         ]);
 
         return $this->responseFactory->json(new LoggedInUserResource($request->user(), $token));
