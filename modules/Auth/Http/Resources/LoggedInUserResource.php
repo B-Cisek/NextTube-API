@@ -8,7 +8,7 @@ use Modules\Auth\Models\User;
 
 class LoggedInUserResource extends JsonResource
 {
-    public function __construct(private readonly User $user)
+    public function __construct(private readonly User $user, private readonly string $token)
     {
         parent::__construct($user);
     }
@@ -17,6 +17,7 @@ class LoggedInUserResource extends JsonResource
     {
         return [
             'user' => new UserResource($this->user),
+            'token' => $this->token
         ];
     }
 }

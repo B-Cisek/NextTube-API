@@ -13,6 +13,8 @@ use Modules\Auth\Repositories\User\UserRepository;
 use Modules\Auth\Repositories\User\UserRepositoryInterface;
 use Modules\Auth\Services\Authentication\AuthService;
 use Modules\Auth\Services\Authentication\AuthServiceInterface;
+use Modules\Auth\Services\JWT\Adapter\JwtProvider;
+use Modules\Auth\Services\JWT\Contract\JwtProviderInterface;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,14 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
+        $this->app->bind(JwtProviderInterface::class, function () {
+            $keyPrivate = file_get_contents(Config::get('auth.jwt.keyPath.private'));
+            $keyPublic = file_get_contents(Config::get('auth.jwt.keyPath.public'));
+            $algorithm = Config::get('auth.jwt.algorithm');
+            $payload = Config::get('auth.jwt.payload');
+
+            return new JwtProvider($keyPrivate, $keyPublic, $payload, $algorithm);
+        });
     }
 
     public function boot(): void

@@ -3,12 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Http\Controllers\EmailVerificationNotificationController;
+use Modules\Auth\Http\Controllers\MeController;
 use Modules\Auth\Http\Controllers\NewPasswordController;
 use Modules\Auth\Http\Controllers\PasswordResetLinkController;
 use Modules\Auth\Http\Controllers\VerifyEmailController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/me', fn (Request $request) => $request->user());
+    Route::get('/me', MeController::class);
     Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
         ->middleware('signed')
         ->name('verification.verify');

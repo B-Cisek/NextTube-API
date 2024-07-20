@@ -1,6 +1,21 @@
 <?php
 
 return [
+    'jwt' => [
+        'payload' => [
+            'iss' => env('JWT_PAYLOAD_ISS'),
+            'aud' => env('JWT_PAYLOAD_AUD'),
+            'iai' => env('JWT_PAYLOAD_IAT'),
+            'nbf' => env('JWT_PAYLOAD_NBF'),
+        ],
+        'algorithm' => env('JWT_ALGORITHM'),
+        'phrase' => env('JWT_PASS_PHRASE'),
+        'keyPath' => [
+            'private' => base_path('config/jwt/private.pem'),
+            'public' => base_path('config/jwt/public.pem'),
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

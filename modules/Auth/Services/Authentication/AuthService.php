@@ -12,14 +12,16 @@ use Modules\Auth\Http\Requests\UserLoginRequest;
 use Modules\Auth\Http\Requests\UserSignupRequest;
 use Modules\Auth\Models\User;
 use Modules\Auth\Repositories\User\UserRepositoryInterface;
+use Modules\Auth\Services\JWT\Contract\JwtProviderInterface;
 use Modules\Auth\Services\RateLimiterService;
 
-readonly class AuthService implements AuthServiceInterface
+final readonly class AuthService implements AuthServiceInterface
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,
         private HashManager $hashManager,
-        private RateLimiterService $rateLimiter
+        private RateLimiterService $rateLimiter,
+        private JwtProviderInterface $jwtProvider
     ) {}
 
     public function signupUser(UserSignupRequest $request): User
