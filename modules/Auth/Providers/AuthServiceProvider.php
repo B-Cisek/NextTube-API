@@ -28,9 +28,9 @@ class AuthServiceProvider extends ServiceProvider
             $keyPrivate = file_get_contents(Config::get('auth.jwt.keyPath.private'));
             $keyPublic = file_get_contents(Config::get('auth.jwt.keyPath.public'));
             $algorithm = Config::get('auth.jwt.algorithm');
-            $payload = Config::get('auth.jwt.payload');
+            $defaultPayload = Config::get('auth.jwt.defaultPayload');
 
-            return new JwtProvider($keyPrivate, $keyPublic, $payload, $algorithm);
+            return new JwtProvider($keyPrivate, $keyPublic, $defaultPayload, $algorithm);
         });
     }
 

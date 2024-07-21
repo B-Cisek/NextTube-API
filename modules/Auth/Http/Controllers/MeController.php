@@ -19,7 +19,7 @@ class MeController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         $token = $this->jwtProvider->generateToken([
-            'email' => $request->get('email'),
+            'sub' => $request->get('id'),
         ]);
 
         return $this->responseFactory->json(new LoggedInUserResource($request->user(), $token));

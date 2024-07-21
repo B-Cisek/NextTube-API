@@ -4,6 +4,7 @@ namespace Modules\Auth\Services\JWT\Adapter;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Illuminate\Support\Str;
 use LogicException;
 use Modules\Auth\Services\JWT\Contract\JwtProviderInterface;
 use UnexpectedValueException;
@@ -13,13 +14,22 @@ final readonly class JwtProvider implements JwtProviderInterface
     public function __construct(
         private string $privateKey,
         private string $publicKey,
-        private array $payload,
+        private array $defaultPayload,
         private string $algorithm
     ) {}
 
     public function generateToken(array $payload): string
     {
-        $payload = [...$this->payload, ...$payload];
+        $payload = [
+            ...$this->defaultPayload,
+            ...$payload,
+            ...[
+                'exp' => time() + 7200,
+                'nbf' => time(),
+                'iat' => time(),
+                'jti' => Str::uuid(),
+            ]
+        ];
 
         return JWT::encode($payload, $this->privateKey, $this->algorithm);
     }
