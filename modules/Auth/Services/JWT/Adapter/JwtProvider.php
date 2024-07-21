@@ -28,7 +28,7 @@ final readonly class JwtProvider implements JwtProviderInterface
                 'nbf' => time(),
                 'iat' => time(),
                 'jti' => Str::uuid(),
-            ]
+            ],
         ];
 
         return JWT::encode($payload, $this->privateKey, $this->algorithm);
